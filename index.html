@@ -2648,6 +2648,18 @@ body.mc .mc-hero[hidden]+#mcCen{display:none}
 .mc-ban-x:hover{background:rgba(12,58,99,.12)}
 #mcWiz .mc-wbody h2[tabindex="-1"]:focus,#mcWiz .mc-wbody h2[tabindex="-1"]:focus-visible{outline:none}
 @media(max-width:640px){.mc-ban-w{padding:8px 16px}.mc-ban-w p span{display:none}}
+
+.mc-foot{align-items:center}
+.mc-aut{border:0;border-radius:18px;padding:0;width:min(560px,calc(100vw - 32px));box-shadow:0 24px 60px rgba(0,0,0,.3);font:16px/1.55 "Public Sans",system-ui,sans-serif;color:#14263a}
+.mc-aut::backdrop{background:rgba(9,32,56,.55)}
+.mc-aut-h{display:flex;align-items:center;gap:12px;background:#0c3a63;color:#fff;padding:16px 18px 16px 22px;box-shadow:inset 0 -4px 0 #F5C02E}
+.mc-aut-h .mc-emb{width:36px;height:36px}
+.mc-aut-h h2{margin:0;flex:1;font:700 20px/1.2 "Lora Mosaico","Lora",Georgia,serif;color:#fff}
+.mc-aut-x{width:40px;height:40px;border:0;border-radius:9px;background:transparent;color:#fff;font-size:26px;line-height:1;cursor:pointer}
+.mc-aut-x:hover{background:rgba(255,255,255,.14)}
+.mc-aut-b{padding:20px 24px 22px;display:flex;flex-direction:column;gap:10px}
+.mc-aut-b p{margin:0}
+.mc-aut-v{color:#4d6074;font-size:13px}
 </style><script id="mc-js">/* ===== v73 · Mi caja =====
    Capa nueva sobre la Caja: portada personal («Mi caja»), catálogo para añadir y quitar herramientas,
    perfil (datos, cursos, grupos, copia de seguridad), primer arranque guiado, sugerencias según el
@@ -2719,7 +2731,7 @@ root.innerHTML='<div id="mcBan" class="mc-ban" hidden></div><header class="mc-to
  +'<button type="button" class="mc-brand" data-mcv="home" aria-label="Mi caja">'+ESC+LOGO+'<span><strong>Mosaico matemático</strong><small>Junta de Comunidades de Castilla-La Mancha</small></span></button>'
  +'<form class="mc-search" id="mcSF" role="search" autocomplete="off">'+SVGQ+'<label for="mcQ" class="mc-sr">Buscar en tu caja</label><input id="mcQ" type="search" enterkeyhint="search" placeholder="¿Qué vas a enseñar? Busca en tu caja…"><button type="button" id="mcQX" aria-label="Borrar la búsqueda" hidden>×</button></form>'
  +'<nav class="mc-nav" aria-label="Principal"><button type="button" class="mc-txt" data-mcv="home">Mi caja</button><button type="button" class="mc-txt" data-mcv="cat">Catálogo</button><button type="button" class="mc-av" id="mcAv" data-mcv="perfil" aria-label="Perfil"></button></nav>'
- +'</div></header><section class="mc-hero" id="mcHero" aria-label="Bienvenida"><div class="mc-hero-w"><div class="mc-hero-t"><h1 id="mcHola">Hola</h1><p id="mcLugar"></p><p class="mc-mom" id="mcMom"></p></div><div class="mc-skyw" id="mcSky" aria-hidden="true"></div></div></section><div id="mcCen"></div><main class="mc-main" id="mcMain"><section class="mc-view" id="mcHome" aria-label="Mi caja"></section><section class="mc-view" id="mcCat" hidden aria-label="Catálogo"></section><section class="mc-view" id="mcPerfil" hidden aria-label="Perfil"></section><section class="mc-view" id="mcBusca" hidden aria-label="Resultados de la búsqueda"></section></main>';
+ +'</div></header><section class="mc-hero" id="mcHero" aria-label="Bienvenida"><div class="mc-hero-w"><div class="mc-hero-t"><h1 id="mcHola">Hola</h1><p id="mcLugar"></p></div><div class="mc-skyw" id="mcSky" aria-hidden="true"></div></div></section><div id="mcCen"></div><main class="mc-main" id="mcMain"><section class="mc-view" id="mcHome" aria-label="Mi caja"></section><section class="mc-view" id="mcCat" hidden aria-label="Catálogo"></section><section class="mc-view" id="mcPerfil" hidden aria-label="Perfil"></section><section class="mc-view" id="mcBusca" hidden aria-label="Resultados de la búsqueda"></section></main>';
 var ini=$('inicio');ini.insertBefore(root,ini.firstChild);
 (function(){var sky=document.querySelector('#inicio>header .v72-sky'),cen=document.querySelector('#inicio>header .v72-cenefa');if(sky){sky.setAttribute('viewBox','0 -40 1440 154');sky.setAttribute('preserveAspectRatio','xMaxYMax meet');$('mcSky').appendChild(sky)}if(cen)$('mcCen').appendChild(cen)})();
 var vista='home',vistaAnt='home',organizar=false;
@@ -2733,19 +2745,14 @@ function tile(t){return '<div class="mc-wrap-tile"><button type="button" class="
 
 function pintaHome(){
  var nom=(S.perfil.nombre||'').trim().split(/\s+/)[0];
- var mm=MOM[mes]||MOM[0],sg=sugerencias(),s=sg[0];
- $('mcHola').textContent='Hola'+(nom?', '+nom:'');$('mcLugar').textContent=lugar();$('mcMom').textContent=MES[mes]+' · '+mm[0];
+ var sg=sugerencias(),s=null;
+ $('mcHola').textContent='Hola'+(nom?', '+nom:'');$('mcLugar').textContent=lugar();
  var h='';
 
  var rec=S.rec.filter(function(r){return TL[r.k]}).slice(0,3);
- h+='<div class="mc-row">';
+ if(rec.length)h+='<div class="mc-row">';
  if(rec.length)h+='<section class="mc-card" aria-labelledby="mcSeg"><h2 class="mc-kick" id="mcSeg">Seguir donde lo dejaste</h2>'+rec.map(function(r){var t=TL[r.k];return '<button type="button" class="mc-rec" data-mco="'+t.k+'">'+ico(t)+'<span><b>'+esc(t.n)+'</b><small>'+hace(r.t)+(enCaja(t.k)?'':' · no está en tu caja')+'</small></span></button>'}).join('');
- if(rec.length)h+='</section>';
- if(s){var st=TL[s[0]],dentro=enCaja(st.k);
-  h+='<section class="mc-card mc-sug" aria-labelledby="mcSugT"><p class="mc-kick">'+esc(mm[0])+'</p><h2 id="mcSugT">'+esc(s[1])+'</h2><p>'+esc(s[2])+(dentro?' Ya la tienes en tu caja.':'')+'</p><div class="mc-btns">'
-   +(dentro?'<button type="button" class="mc-b p" data-mco="'+st.k+'">Abrir '+esc(st.n)+'</button>':'<button type="button" class="mc-b p" data-mcadd="'+st.k+'">'+SVGP+'Añadir '+esc(st.n)+' a mi caja</button>')
-   +'<button type="button" class="mc-b q" data-mcdesc="'+st.k+'">Ahora no</button></div></section>'}
- h+='</div>';
+ if(rec.length)h+='</section></div>';
  var cj=S.caja.map(function(k){return TL[k]});
  var fuera=ORD.filter(function(k){return !enCaja(k)}).length;
  var rk=null;sg.forEach(function(x){if(!rk&&!enCaja(x[0])&&(!s||x[0]!==s[0]))rk=x[0]});
@@ -2761,7 +2768,7 @@ function pintaHome(){
   if(i===0&&rk&&!organizar){var rt=TL[rk];h+='<div class="mc-hueco rec"><span class="mc-hueco-k">Hueco libre · te recomendamos</span>'+ico(rt)+'<b>'+esc(rt.n)+'</b><button type="button" class="mc-b" data-mcadd="'+rk+'">'+SVGP+'Meter en mi caja</button></div>'}
   else h+='<button type="button" class="mc-hueco" data-mcv="cat" aria-label="Hueco libre: añadir una herramienta desde el catálogo"><span class="mc-plus" aria-hidden="true">'+SVGP+'</span><span>Hueco libre</span></button>'}
  h+='</div></section>';
- h+='<footer class="mc-foot"><span>Tus datos se guardan solo en este equipo.</span><span><button type="button" data-mcia="1">Aviso sobre la IA</button> · <button type="button" data-nov="1">Novedades</button> · '+esc((window.CAJA_VER||'').split('·')[0].trim())+'</span></footer>';
+ h+='<footer class="mc-foot"><span>Tus datos se guardan solo en este equipo.</span><span><button type="button" data-mcia="1">Aviso sobre la IA</button> · <button type="button" data-nov="1">Novedades</button> · <button type="button" data-mcaut="1">Autoría</button> · '+esc((window.CAJA_VER||'').split('·')[0].trim())+'</span></footer>';
  $('mcHome').innerHTML=h}
 
 function pintaCat(){
@@ -2858,7 +2865,7 @@ function verBloque(g){document.body.classList.add('mc-old');window.cajaGV(g);var
 document.addEventListener('click',function(e){if(document.body.classList.contains('mc-old')&&e.target.closest('[data-gvb]')){e.stopPropagation();e.preventDefault();ver('cat')}},true);
 new MutationObserver(function(){var b=document.querySelector('#gvHd .gv-back');if(b&&b.textContent!=='← Catálogo')b.textContent='← Catálogo'}).observe($('gvHd'),{childList:true});
 
-document.addEventListener('click',function(e){var b=e.target.closest('[data-mcv],[data-mco],[data-mcadd],[data-mcdel],[data-mcdesc],[data-mcorg],[data-mcr],[data-mcgv],[data-mctour],[data-mcia],[data-mcinst],[data-mcnoinst],[data-mcinsth],[data-mcbanx]');if(!b||!(root.contains(b)||b.closest('#mcWiz')))return;
+document.addEventListener('click',function(e){var b=e.target.closest('[data-mcv],[data-mco],[data-mcadd],[data-mcdel],[data-mcdesc],[data-mcorg],[data-mcr],[data-mcgv],[data-mctour],[data-mcia],[data-mcinst],[data-mcnoinst],[data-mcinsth],[data-mcbanx],[data-mcaut]');if(!b||!(root.contains(b)||b.closest('#mcWiz')))return;
  var d=b.dataset;
  if(d.mcv){ver(d.mcv);return}
  if(d.mco){abrirK(d.mco);return}
@@ -2872,6 +2879,7 @@ document.addEventListener('click',function(e){var b=e.target.closest('[data-mcv]
  if(d.mcia){wizard(true,6);return}
  if(d.mcinst){instalar();return}
  if(d.mcinsth){wizard('instalar');return}
+ if(d.mcaut){autoria();return}
  if(d.mcbanx){try{sessionStorage.setItem('mc.ban','1')}catch(x){}pintaBan();return}
  if(d.mcnoinst){S.noInst=1;save();pintaHome();return}});
 
@@ -2957,6 +2965,15 @@ function guardaW(){S.perfil.nombre=(W.nombre||'').trim();S.perfil.centro=(W.cent
 function cierraW(){var o=$('mcWiz');if(o)o.hidden=true;document.body.style.overflow='';pintaBan()}
 document.addEventListener('keydown',function(e){var o=$('mcWiz');if(e.key==='Escape'&&o&&!o.hidden&&W&&(W.tour||W.pasos[W.i]==='instalar'))cierraW()});
 var h2=$('how2');if(h2)h2.onclick=function(){wizard(true)};var h1=$('how1');if(h1)h1.onclick=function(){wizard(true)};
+
+/* ---------- autoría ---------- */
+function autoria(){var d=$('mcAut');if(!d){d=document.createElement('dialog');d.id='mcAut';d.className='mc-aut';d.setAttribute('aria-labelledby','mcAutT');document.body.appendChild(d)}
+ d.innerHTML='<div class="mc-aut-h">'+LOGO+'<h2 id="mcAutT">Autoría y créditos</h2><button type="button" class="mc-aut-x" aria-label="Cerrar">×</button></div><div class="mc-aut-b">'
+  +'<p><b>Mosaico matemático · Caja de herramientas de Matemáticas</b></p>'
+  +'<p>Elaborada por el <b>PCT de Refuerzo de la Competencia Matemática</b> de la Consejería de Educación, Cultura y Deportes de Castilla-La Mancha.</p>'
+  +'<p><b>Codocencia en Matemáticas</b> está adaptada del trabajo de Paula Mínguez Picasso (licencia CC BY-NC).</p>'
+  +'<p class="mc-aut-v">Versión '+esc(window.CAJA_VER||'')+'</p></div>';
+ d.querySelector('.mc-aut-x').onclick=function(){d.close()};d.onclick=function(e){if(e.target===d)d.close()};d.showModal()}
 
 /* ---------- aplicación instalable ---------- */
 var instEv=null;
