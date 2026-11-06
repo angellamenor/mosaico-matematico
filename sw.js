@@ -1,11 +1,12 @@
 /* Mosaico matemático · service worker
    Guarda la Caja en el equipo para que funcione sin conexión.
    Al publicar una versión nueva, cambia VERSION: el navegador la descarga y la Caja ofrece «Actualizar». */
-var VERSION='mosaico-v73h-2026-11-06';
+var VERSION='mosaico-v73i-2026-11-06';
 var ARCHIVOS=['./','./index.html','./manifest.webmanifest','./icons/icon-192.png','./icons/icon-512.png','./icons/icon-maskable-512.png','./icons/apple-touch-icon.png'];
 
 self.addEventListener('install',function(e){
-  e.waitUntil(caches.open(VERSION).then(function(c){return c.addAll(ARCHIVOS)}));
+  /* cache:'reload' para no guardar una copia vieja que el navegador tuviera en caché */
+  e.waitUntil(caches.open(VERSION).then(function(c){return c.addAll(ARCHIVOS.map(function(u){return new Request(u,{cache:'reload'})}))}));
 });
 
 self.addEventListener('activate',function(e){
