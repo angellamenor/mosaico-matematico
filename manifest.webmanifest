@@ -1,0 +1,16 @@
+{
+  "name": "Mosaico matemático · Caja de herramientas de Matemáticas",
+  "short_name": "Mosaico",
+  "description": "Caja de herramientas de Matemáticas para enseñar con sentido · PCT de Refuerzo de la Competencia Matemática · Castilla-La Mancha",
+  "lang": "es",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f4f7fa",
+  "theme_color": "#0c3a63",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

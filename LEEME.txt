@@ -1,0 +1,35 @@
+MOSAICO MATEMÁTICO · versión instalable (v73, borrador)
+=======================================================
+
+QUÉ HAY EN ESTA CARPETA
+  index.html             La Caja completa (las herramientas no cambian) con la capa nueva «Mi caja».
+  sw.js                  Hace que funcione sin conexión y avisa cuando hay versión nueva.
+  manifest.webmanifest   Nombre, colores e iconos para instalarla.
+  icons/                 Iconos de la aplicación.
+
+CÓMO PUBLICARLA EN GITHUB PAGES (gratis)
+  1. Entra en github.com con tu cuenta y pulsa «New repository».
+     Nombre: mosaico-matematico · Visibilidad: Public · «Create repository».
+  2. En el repositorio vacío, pulsa «uploading an existing file» y arrastra
+     TODO el contenido de esta carpeta (index.html, sw.js, manifest.webmanifest,
+     LEEME.txt y la carpeta icons). Pulsa «Commit changes».
+  3. Settings › Pages › Build and deployment › Source: «Deploy from a branch».
+     Branch: main · carpeta: / (root) › Save.
+  4. En uno o dos minutos estará en https://TU-USUARIO.github.io/mosaico-matematico/
+  5. Comparte esa dirección. En Chrome aparecerá «Instalar». No hace falta ser administrador.
+
+  También vale cualquier otra web con https (por ejemplo, un servidor de la Junta):
+  sube la carpeta entera, tal cual.
+
+  Nota: abierta como archivo suelto (doble clic en index.html) también funciona,
+  pero sin instalación, sin modo sin conexión y sin avisos de actualización.
+
+CÓMO PUBLICAR UNA VERSIÓN NUEVA
+  1. Sustituye index.html (y lo que haya cambiado). En GitHub: «Add file» › «Upload files»,
+     arrastra los archivos nuevos y «Commit changes».
+  2. En sw.js cambia la línea VERSION (por ejemplo, mosaico-v74-2026-12-01).
+  3. Los docentes verán «Hay una versión nueva de la Caja · Actualizar». Sus datos se conservan.
+
+DÓNDE SE GUARDAN LOS DATOS
+  Solo en el navegador del equipo (nada se envía a ningún servidor).
+  Desde Perfil › Copia de seguridad se puede guardar y recuperar todo en un archivo.
